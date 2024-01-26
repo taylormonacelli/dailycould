@@ -50,12 +50,22 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
+	var err error
+
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.{{ cookiecutter.project_slug }}.yaml)")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "enable verbose mode")
-	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
+	err = viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
+	if err != nil {
+		slog.Error("error binding verbose flag", "error", err)
+		os.Exit(1)
+	}
 
 	rootCmd.PersistentFlags().StringVar(&logFormat, "log-format", "", "json or text (default is text)")
-	viper.BindPFlag("log-format", rootCmd.PersistentFlags().Lookup("log-format"))
+	err = viper.BindPFlag("log-format", rootCmd.PersistentFlags().Lookup("log-format"))
+	if err != nil {
+		slog.Error("error binding log-format flag", "error", err)
+		os.Exit(1)
+	}
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
