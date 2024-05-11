@@ -26,19 +26,6 @@ const (
 	buildTarget   = "{{ cookiecutter.project_slug }}"
 )
 
-var (
-	version     = ""
-	date        = ""
-	goVersion   = ""
-	shortGitSHA = ""
-	fullGitSHA  = ""
-)
-
-const (
-	ldFlagsPrefix = "github.com/taylormonacelli/closelylisten/version"
-	buildTarget   = "closelylisten"
-)
-
 func init() {
 	var err error
 	date = time.Now().UTC().Format(time.RFC3339)
