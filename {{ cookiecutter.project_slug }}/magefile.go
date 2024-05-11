@@ -21,6 +21,8 @@ var (
 	fullGitSHA  = ""
 )
 
+var Default = Iterate // default mage target
+
 const (
 	ldFlagsPrefix = "github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/version"
 	buildTarget   = "{{ cookiecutter.project_slug }}"
@@ -54,6 +56,10 @@ func init() {
 
 	shortGitSHA = commit.Hash.String()[:7]
 	fullGitSHA = commit.Hash.String()
+}
+
+func Iterate() {
+	mg.Deps(Check, Build)
 }
 
 func Lint() error {
